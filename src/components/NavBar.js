@@ -1,5 +1,5 @@
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import logo from "../assets/logo.png";
+import CartWidget from "./CartWidget";
 
 function NavBar(){
 
@@ -13,7 +13,7 @@ function NavBar(){
                 <a style={styles.navStyleItem} href="">Contactanos</a>
                 <a style={styles.navStyleItem} href="">Ayuda</a>
             </nav>
-            { <ShoppingCartIcon sx={{ size: 30 }} /> }
+            <CartWidget />
         </header>
     );
 }
