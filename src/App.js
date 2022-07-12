@@ -3,6 +3,7 @@ import ItemListContainer from "./components/ItemListContainer";
 import './App.css';
 // import ItemCount from "./components/ItemCount";
 import ItemDetailContainer from "./components/ItemDetailContainer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
 
@@ -13,14 +14,14 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
-      <ItemListContainer />
-      {/* <ItemCount 
-        stock = {15}
-        initial = {5}
-        onAdd = {onAdd}
-      /> */}
-      <ItemDetailContainer />
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={ <ItemListContainer />}/>
+          <Route path="/category/:idCategory" element={ <ItemListContainer />}/>
+          <Route path="/item/:idProduct" element={<ItemDetailContainer />}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

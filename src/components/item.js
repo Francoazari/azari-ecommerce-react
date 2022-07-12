@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 function Item(props){
 
     return(
         <div style={styles.article}>
             <img style={styles.articleImage} src={props.productInfo.image} alt={props.productInfo.title} />
-            <p>{props.productInfo.title}</p>
+            <Link to={`/item/${props.productInfo.id}`}> <p>{props.productInfo.title}</p></Link>
             <div>${props.productInfo.price}</div>
             <p>{props.productInfo.description}</p>
         </div>

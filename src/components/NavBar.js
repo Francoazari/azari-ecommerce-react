@@ -1,17 +1,19 @@
 import logo from "../assets/logo.png";
 import CartWidget from "./CartWidget";
+import { Link } from "react-router-dom";
 
 function NavBar(){
 
     return(
         <header style={styles.container}>
-            <img style={styles.imageLogo} src={logo} alt="logo" />
+            <Link to={"/"}><img style={styles.imageLogo} src={logo} alt="logo" /></Link>
             <h1>Azari Ecommerce</h1>
             <nav style={styles.navStyle}>
-                <a style={styles.navStyleItem} href="#/">Inicio</a>
-                <a style={styles.navStyleItem} href="#/">Categorias</a>
-                <a style={styles.navStyleItem} href="#/">Contactanos</a>
-                <a style={styles.navStyleItem} href="#/">Ayuda</a>
+                <Link to={"/"}> <p style={styles.navStyleItem}>Inicio</p></Link>
+                <Link to="/category/jewelery"><p style={styles.navStyleItem} >Jewelery</p></Link>
+                <Link to="/category/electronics"><p style={styles.navStyleItem} >Electronics</p></Link>
+                <Link to={"/"}> <p style={styles.navStyleItem}>Contactanos</p></Link>
+                <Link to={"/"}> <p style={styles.navStyleItem}>Ayuda</p></Link>
             </nav>
             <CartWidget />
         </header>

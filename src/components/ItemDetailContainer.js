@@ -9,16 +9,15 @@ function ItemDetailContainer(props) {
 
     const [product, setProduct] = useState([]);
     const [loaded, setLoaded] = useState(true);
-    const { productId } = useParams();
+    const { idProduct } = useParams();
     
     useEffect(() => {
-            fetch(`https://fakestoreapi.com/products/${productId}`)
-            .then(res=>res.json())
-            .then(data=>setProduct(data))
-            .catch(err=>console.log(err))
-            .finally(()=>setLoaded(false))
-        
-    }, [productId]);
+        fetch(`https://fakestoreapi.com/products/${idProduct}`)
+        .then(res=>res.json())
+        .then(data=>setProduct(data))
+        .catch(err=>console.log(err))
+        .finally(()=>setLoaded(false))        
+    }, [idProduct]);
 
     return(
         <>
