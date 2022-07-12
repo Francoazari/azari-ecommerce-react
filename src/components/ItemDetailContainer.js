@@ -1,30 +1,37 @@
-import { useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
 
 
 
 function ItemDetailContainer(props) {
 
-    const [item, setItem] = useState();
+    const [product, setProduct] = useState([]);
+    const [loaded, setLoaded] = useState(true);
+    const querystring = window.location.search;
+    const params = new URLSearchParams(querystring);
+    const [productId, setProductId] = useState();
+    
+    useEffect(() => {
+        setProductId(params.get('productId'));    
+    }, []);
 
-    const getItem = (idItem) => {
-        if(!idItem) return;
-
-        fetch('https://fakestoreapi.com/products/' + idItem)
+    
+    
+    useEffect(() => {
+        if(productId){
+            fetch(`https://fakestoreapi.com/products/${productId}`)
             .then(res=>res.json())
-            .then(json=>setItem(json))
-
-            console.log(item)
-            
-
-
-        return <ItemDetail  />
-    }
+            .then(data=>setProduct(data))
+            .catch(err=>console.log(err))
+            .finally(()=>setLoaded(false))
+        }
+        
+    }, [productId]);
 
     return(
         <>
-            {() => getItem(3)}
-            
+            { loaded ? <CircularProgress color="success" /> : <ItemDetail product={product} /> }
         </>
     );
 }

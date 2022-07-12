@@ -1,25 +1,25 @@
 import NavBar from "./components/NavBar";
 import ItemListContainer from "./components/ItemListContainer";
 import './App.css';
-import ItemCount from "./components/ItemCount";
+// import ItemCount from "./components/ItemCount";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 
 function App() {
 
 
-  const onAdd = () => {
-    console.log("Agrega al carrito");
-  }
+  // const onAdd = () => {
+  //   console.log("Agrega al carrito");
+  // }
 
   return (
     <div className="App">
       <NavBar />
-      <ItemListContainer greeting="Hola Mundo!"/>
-      <ItemCount 
+      <ItemListContainer />
+      {/* <ItemCount 
         stock = {15}
         initial = {5}
         onAdd = {onAdd}
-      />
+      /> */}
       <ItemDetailContainer />
     </div>
   );
