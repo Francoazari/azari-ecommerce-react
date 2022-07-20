@@ -1,13 +1,12 @@
 import Item from "./item";
 
-
-function ItemList({products}){
-
-    return(
+function ItemList({ products }) {
+    return (
         <div style={styles.listItems}>
-            {products && products.map(product => {
-                return <Item key={product.id} productInfo={product}/>
-            })}
+            {products &&
+                products.map((product) => {
+                    return <Item key={product.id} productInfo={product} />;
+                })}
         </div>
     );
 }
@@ -19,6 +18,6 @@ const styles = {
         justifyContent: "center",
         flexWrap: "wrap"
     }
-}
+};
 
 export default ItemList;
