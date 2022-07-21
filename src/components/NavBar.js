@@ -11,7 +11,6 @@ function NavBar() {
             <h1>Az Ecommerce</h1>
             <nav style={styles.navStyle}>
                 <Link to={"/"}>
-                    {" "}
                     <p style={styles.navStyleItem}>Inicio</p>
                 </Link>
                 <Link to="/category/jewelery">
@@ -21,11 +20,9 @@ function NavBar() {
                     <p style={styles.navStyleItem}>Electronics</p>
                 </Link>
                 <Link to={"/"}>
-                    {" "}
                     <p style={styles.navStyleItem}>Contactanos</p>
                 </Link>
                 <Link to={"/"}>
-                    {" "}
                     <p style={styles.navStyleItem}>Ayuda</p>
                 </Link>
             </nav>
@@ -44,12 +41,16 @@ const styles = {
     },
     navStyle: {
         display: "flex",
-        justifyContent: "space-evenly"
+        justifyContent: "space-evenly",
+        color: "black",
+        textDecoration: "none !important"
     },
     imageLogo: {
         height: 70
     },
     navStyleItem: {
+        color: "black",
+        textDecoration: "none",
         margin: 10
     }
 };

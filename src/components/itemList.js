@@ -15,7 +15,7 @@ const styles = {
     listItems: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         flexWrap: "wrap"
     }
 };

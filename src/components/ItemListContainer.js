@@ -9,7 +9,7 @@ function ItemListContainer(props) {
     useEffect(() => {
         fetch(
             !idCategory
-                ? "https://fakestoreapi.com/products?limit=5"
+                ? "https://fakestoreapi.com/products?limit=15"
                 : `https://fakestoreapi.com/products/category/${idCategory}`
         )
             .then((res) => res.json())

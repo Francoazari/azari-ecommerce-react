@@ -14,6 +14,9 @@ function ItemCount({ stock, initial, onAdd }) {
     return (
         <>
             <div style={styles.container}>
+                <div style={styles.stock}>
+                    <span>Unidades disponibles: {stock}</span>
+                </div>
                 <div style={styles.containerCount}>
                     <div style={styles.button} onClick={sacarProducto}>
                         -
@@ -47,6 +50,11 @@ const styles = {
         borderRadius: "5px",
         backgroundColor: "#ebebeb",
         padding: "10px"
+    },
+    stock: {
+        fontSize: "12px",
+        textAlign: "left",
+        marginBottom: "5px"
     },
     containerCount: {
         width: "100%",
