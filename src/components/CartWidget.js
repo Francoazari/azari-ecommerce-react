@@ -9,7 +9,7 @@ const CartWidget = () => {
     return (
         <Link to="/cart">
             <div style={styles.cart}>
-                <span style={styles.cartSpan}>{getQuantityProducts()}</span>
+                {getQuantityProducts() > 0 && <span style={styles.cartSpan}>{getQuantityProducts()}</span>}
                 <ShoppingCartIcon sx={{ size: 30 }} />
             </div>
         </Link>

@@ -1,5 +1,50 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { contexto } from "../context/CartContext";
+import ItemCart from "./ItemCart";
+
 const Cart = () => {
-    return <h2>Cart component</h2>;
+    const { products, removeItem, getTotal } = useContext(contexto);
+    console.log(products);
+    return (
+        <>
+            <h2>Cart</h2>
+            {products.length > 0 && (
+                <div>
+                    {products.map((product) => {
+                        return <ItemCart key={product.id} item={product} removeItem={removeItem} />;
+                    })}
+                    <div style={styles.total}>Total: ${getTotal()}</div>
+                </div>
+            )}
+
+            {products.length === 0 && (
+                <div style={styles.noProducts}>
+                    <span>No hay articulos en el carrito.</span>
+                    <Link to="/">
+                        <span>Ir a la tienda</span>
+                    </Link>
+                </div>
+            )}
+        </>
+    );
+};
+
+const styles = {
+    noProducts: {
+        width: "100%",
+        textAlign: "center",
+        fontSize: "15px",
+        fontWeight: "bold",
+        display: "flex",
+        flexDirection: "column",
+        marginTop: "50px"
+    },
+    total: {
+        width: "100%",
+        textAlign: "right",
+        fontWeight: "bold"
+    }
 };
 
 export default Cart;

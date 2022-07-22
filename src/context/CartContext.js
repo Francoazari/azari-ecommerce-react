@@ -22,10 +22,8 @@ const CustomProvider = ({ children }) => {
     const removeItem = (id) => {
         if (!id || !isInCart(id)) return;
         let newProducts = [...products];
-        newProducts = newProducts.splice(
-            newProducts.findIndex((product) => product.id === id),
-            1
-        );
+        const idABorrar = newProducts.findIndex((product) => product.id === id);
+        newProducts.splice(idABorrar, 1);
         setProducts(newProducts);
     };
 
@@ -35,9 +33,11 @@ const CustomProvider = ({ children }) => {
 
     const isInCart = (id) => products.some((item) => item.id === id);
 
-    const getQuantityProducts = () => products.length;
+    const getQuantityProducts = () => products.reduce((accum, currentValue) => accum + currentValue.quantity, 0);
 
-    return <Provider value={{ addItem, removeItem, clear, isInCart, getElement, getQuantityProducts }}>{children}</Provider>;
+    const getTotal = () => products.reduce((accum, currentValue) => accum + currentValue.price * currentValue.quantity, 0);
+
+    return <Provider value={{ products, addItem, removeItem, clear, isInCart, getElement, getQuantityProducts, getTotal }}>{children}</Provider>;
 };
 
 export default CustomProvider;
