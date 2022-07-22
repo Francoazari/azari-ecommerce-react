@@ -31,12 +31,12 @@ const styles = {
         alignItems: "center",
         width: "15px",
         heihgt: "15px",
-        fontSize: "12px",
+        fontSize: "10px",
         color: "white",
         borderRadius: "50%",
         backgroundColor: "#194F7D",
         padding: "2px",
-        lineHeihgt: "5px"
+        lineHeight: "1.5em"
     }
 };
 

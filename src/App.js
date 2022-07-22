@@ -29,7 +29,11 @@ function App() {
 
 const styles = {
     container: {
-        width: "80vw"
+        width: "80vw",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center"
     }
 };
 

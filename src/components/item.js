@@ -4,11 +4,7 @@ function Item(props) {
     return (
         <div style={styles.article}>
             <div style={styles.image}>
-                <img
-                    style={styles.articleImage}
-                    src={props.productInfo.image}
-                    alt={props.productInfo.title}
-                />
+                <img style={styles.articleImage} src={props.productInfo.image} alt={props.productInfo.title} />
             </div>
             <p style={styles.title}>{props.productInfo.title}</p>
             <div style={styles.price}>${props.productInfo.price}</div>

@@ -5,16 +5,16 @@ import ItemCart from "./ItemCart";
 
 const Cart = () => {
     const { products, removeItem, getTotal } = useContext(contexto);
-    console.log(products);
+
     return (
         <>
             <h2>Cart</h2>
             {products.length > 0 && (
-                <div>
+                <div style={styles.cartContainer}>
                     {products.map((product) => {
                         return <ItemCart key={product.id} item={product} removeItem={removeItem} />;
                     })}
-                    <div style={styles.total}>Total: ${getTotal()}</div>
+                    <div style={styles.total}>Total: ${getTotal().toFixed(2)}</div>
                 </div>
             )}
 
@@ -44,6 +44,13 @@ const styles = {
         width: "100%",
         textAlign: "right",
         fontWeight: "bold"
+    },
+    cartContainer: {
+        width: "80%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center"
     }
 };
 
