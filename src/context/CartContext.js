@@ -16,6 +16,7 @@ const CustomProvider = ({ children }) => {
         } else {
             newProducts = [...newProducts, { ...item, quantity: quantity }];
         }
+
         setProducts(newProducts);
     };
 

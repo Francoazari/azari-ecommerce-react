@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ItemDetail from "./ItemDetail";
 import { contexto } from "../context/CartContext";
+import { db } from "../firabase/firebase";
+import { getDoc, collection, doc } from "firebase/firestore";
 
 function ItemDetailContainer(props) {
     const [product, setProduct] = useState([]);
@@ -12,17 +14,21 @@ function ItemDetailContainer(props) {
     let navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/${idProduct}`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (!data.stock) {
-                    data.stock = 15;
-                    if (isInCart(data.id)) {
-                        let item = getElement(data.id);
-                        data.stock -= item.quantity;
-                    }
+        const productsCollection = collection(db, "products");
+        const refDoc = doc(productsCollection, idProduct);
+        getDoc(refDoc)
+            .then((result) => {
+                let quantity = 0;
+                if (isInCart(result.id)) {
+                    quantity = getElement(result.id).quantity;
                 }
-                setProduct(data);
+
+                const producto = {
+                    id: result.id,
+                    ...result.data(),
+                    stock: result.data().stock - quantity
+                };
+                setProduct(producto);
             })
             .catch(() => navigate("/"))
             .finally(() => setLoaded(false));
