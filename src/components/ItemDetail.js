@@ -37,8 +37,7 @@ const styles = {
         maxHeight: "400px",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
-        marginTop: "50px"
+        justifyContent: "center"
     },
     itemImage: {
         width: "30%",

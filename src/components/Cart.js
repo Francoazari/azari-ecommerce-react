@@ -21,7 +21,7 @@ const Cart = () => {
             {products.length === 0 && (
                 <div style={styles.noProducts}>
                     <span>No hay articulos en el carrito.</span>
-                    <Link to="/">
+                    <Link to="/" style={styles.irTienda}>
                         <span>Ir a la tienda</span>
                     </Link>
                 </div>
@@ -38,6 +38,7 @@ const styles = {
         fontWeight: "bold",
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
         marginTop: "50px"
     },
     total: {
@@ -51,6 +52,18 @@ const styles = {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center"
+    },
+    irTienda: {
+        width: "100px",
+        height: "25px",
+        border: "0",
+        backgroundColor: "#0b1c42",
+        borderRadius: "5px",
+        padding: "5px",
+        color: "#FFF",
+        marginTop: "10px",
+        cursor: "pointer",
+        textDecoration: "none"
     }
 };
 

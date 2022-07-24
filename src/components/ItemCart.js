@@ -1,4 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
 
 const ItemCart = ({ item, removeItem }) => {
     return (
@@ -7,7 +8,9 @@ const ItemCart = ({ item, removeItem }) => {
                 <img style={styles.image} src={item.image} alt={item.title} />
             </div>
             <div style={styles.information}>
-                <span style={styles.title}>{item.title}</span>
+                <Link to={"/item/" + item.id} style={styles.title}>
+                    <span style={styles.title}>{item.title}</span>
+                </Link>
                 <span style={styles.quantity}>{item.quantity}</span>
                 <span style={styles.price}>${item.price.toFixed(2)}</span>
                 <span style={styles.totalPrice}>${(item.price * item.quantity).toFixed(2)}</span>
@@ -59,7 +62,10 @@ const styles = {
         width: "60%",
         overflow: "hidden",
         whiteSpace: "nowrap",
-        textOverflow: "ellipsis"
+        textOverflow: "ellipsis",
+        textDecoration: "none",
+        color: "#000",
+        cursor: "pointer"
     },
     quantity: {
         width: "10%",
@@ -75,7 +81,8 @@ const styles = {
     },
     removeButton: {
         width: "10%",
-        textAlign: "right"
+        textAlign: "right",
+        cursor: "pointer"
     }
 };
 

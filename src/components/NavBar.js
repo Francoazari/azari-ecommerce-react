@@ -8,22 +8,22 @@ function NavBar() {
             <Link to={"/"}>
                 <img style={styles.imageLogo} src={logo} alt="logo" />
             </Link>
-            <h1>Az Ecommerce</h1>
+            <h3>Az Ecommerce</h3>
             <nav style={styles.navStyle}>
-                <Link to={"/"}>
-                    <p style={styles.navStyleItem}>Inicio</p>
+                <Link to={"/"} style={styles.navStyleItem}>
+                    <p>Inicio</p>
                 </Link>
-                <Link to="/category/jewelery">
-                    <p style={styles.navStyleItem}>Jewelery</p>
+                <Link to="/category/jewelery" style={styles.navStyleItem}>
+                    <p>Jewelery</p>
                 </Link>
-                <Link to="/category/electronics">
-                    <p style={styles.navStyleItem}>Electronics</p>
+                <Link to="/category/electronics" style={styles.navStyleItem}>
+                    <p>Electronics</p>
                 </Link>
-                <Link to={"/"}>
-                    <p style={styles.navStyleItem}>Contactanos</p>
+                <Link to={"/"} style={styles.navStyleItem}>
+                    <p>Contactanos</p>
                 </Link>
-                <Link to={"/"}>
-                    <p style={styles.navStyleItem}>Ayuda</p>
+                <Link to={"/"} style={styles.navStyleItem}>
+                    <p>Ayuda</p>
                 </Link>
             </nav>
             <CartWidget />
@@ -37,21 +37,23 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-evenly",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: "#EEEEEE",
+        marginBottom: "30px"
     },
     navStyle: {
         display: "flex",
         justifyContent: "space-evenly",
         color: "black",
-        textDecoration: "none !important"
+        textDecoration: "none"
     },
     imageLogo: {
-        height: 70
+        height: "40px"
     },
     navStyleItem: {
         color: "black",
         textDecoration: "none",
-        margin: 10
+        margin: "5px 15px"
     }
 };
 
