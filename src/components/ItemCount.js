@@ -21,7 +21,7 @@ function ItemCount({ stock, initial, onAdd }) {
                     <div style={styles.button} onClick={sacarProducto}>
                         -
                     </div>
-                    <div style={styles.count}>{count}</div>
+                    <div style={styles.count}>{count <= stock ? count : setCount(stock)}</div>
                     <div style={styles.button} onClick={agregarProducto}>
                         +
                     </div>
