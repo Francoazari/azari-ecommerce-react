@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { contexto } from "../context/CartContext";
 import ItemCart from "./ItemCart";
 import { db } from "../firabase/firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { doc, addDoc, collection, serverTimestamp, updateDoc } from "firebase/firestore";
 import swal from "sweetalert";
 
 const Cart = () => {
@@ -25,9 +25,15 @@ const Cart = () => {
             total: getTotal()
         })
             .then((result) => {
-                clear();
-                swal("Compra realizada con éxito", "ID Venta: " + result.id, "success").then((value) => {
-                    navigate("/");
+                const idVenta = result.id;
+                products.forEach((product) => {
+                    const updateCollection = doc(db, "products", product.id);
+                    updateDoc(updateCollection, { stock: product.stock - product.quantity }).then(() => {
+                        clear();
+                        swal("Compra realizada con éxito", "ID Venta: " + idVenta, "success").then(() => {
+                            navigate("/");
+                        });
+                    });
                 });
             })
             .catch((err) => {
