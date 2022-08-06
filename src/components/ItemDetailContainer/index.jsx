@@ -1,9 +1,9 @@
 import { CircularProgress } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ItemDetail from "./ItemDetail";
-import { contexto } from "../context/CartContext";
-import { db } from "../firabase/firebase";
+import ItemDetail from "../ItemDetail";
+import { contexto } from "../../context/CartContext";
+import { db } from "../../firabase/firebase";
 import { getDoc, collection, doc } from "firebase/firestore";
 
 function ItemDetailContainer(props) {

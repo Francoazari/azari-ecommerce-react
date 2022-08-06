@@ -1,8 +1,9 @@
-import Item from "./Item";
+import Item from "../Item";
+import styles from "./ItemList.module.css";
 
 function ItemList({ products }) {
     return (
-        <div style={styles.listItems}>
+        <div className={styles.listItems}>
             {products &&
                 products.map((product) => {
                     return <Item key={product.id} productInfo={product} />;
@@ -10,14 +11,5 @@ function ItemList({ products }) {
         </div>
     );
 }
-
-const styles = {
-    listItems: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        flexWrap: "wrap"
-    }
-};
 
 export default ItemList;

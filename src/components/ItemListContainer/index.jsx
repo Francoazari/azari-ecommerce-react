@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ItemList from "./ItemList";
+import ItemList from "../ItemList";
 import { useParams } from "react-router-dom";
-import { db } from "../firabase/firebase";
+import { db } from "../../firabase/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { CircularProgress } from "@mui/material";
 
@@ -29,6 +29,7 @@ function ItemListContainer(props) {
             })
             .catch((err) => console.log(err))
             .finally(() => setLoaded(false));
+        return setLoaded(true);
     }, [idCategory]);
 
     return <>{loaded ? <CircularProgress color="success" /> : <ItemList products={products} />}</>;

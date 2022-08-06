@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { contexto } from "../context/CartContext";
-import ItemCart from "./ItemCart";
-import { db } from "../firabase/firebase";
+import { contexto } from "../../context/CartContext";
+import ItemCart from "../ItemCart";
+import { db } from "../../firabase/firebase";
 import { doc, addDoc, collection, serverTimestamp, updateDoc } from "firebase/firestore";
 import swal from "sweetalert";
+import styles from "./Cart.module.css";
 
 const Cart = () => {
     const { products, removeItem, getTotal, clear } = useContext(contexto);
@@ -46,21 +47,21 @@ const Cart = () => {
         <>
             <h2>Cart</h2>
             {products.length > 0 && (
-                <div style={styles.container}>
-                    <div style={styles.cartContainer}>
+                <div className={styles.container}>
+                    <div className={styles.cartContainer}>
                         {products.map((product) => {
                             return <ItemCart key={product.id} item={product} removeItem={removeItem} />;
                         })}
-                        <div style={styles.total}>Total: ${getTotal().toFixed(2)}</div>
+                        <div className={styles.total}>Total: ${getTotal().toFixed(2)}</div>
                     </div>
-                    <div style={styles.datosUsuario}>
+                    <div className={styles.datosUsuario}>
                         <h3>Finalizar compra</h3>
                         <form onSubmit={(e) => handleSubmit(e)}>
-                            <input style={styles.inputForm} type="text" name="name" placeholder="Nombre" required />
-                            <input style={styles.inputForm} type="text" name="lastname" placeholder="Apellido" required />
-                            <input style={styles.inputForm} type="email" name="email" placeholder="Email" required />
-                            <input style={styles.inputForm} type="phone" name="phone" placeholder="Telefono" required />
-                            <button style={styles.buttonForm} type="submit">
+                            <input className={styles.inputForm} type="text" name="name" placeholder="Nombre" required />
+                            <input className={styles.inputForm} type="text" name="lastname" placeholder="Apellido" required />
+                            <input className={styles.inputForm} type="email" name="email" placeholder="Email" required />
+                            <input className={styles.inputForm} type="phone" name="phone" placeholder="Telefono" required />
+                            <button className={styles.buttonForm} type="submit">
                                 Confirmar compra
                             </button>
                         </form>
@@ -69,76 +70,15 @@ const Cart = () => {
             )}
 
             {products.length === 0 && (
-                <div style={styles.noProducts}>
+                <div className={styles.noProducts}>
                     <span>No hay articulos en el carrito.</span>
-                    <Link to="/" style={styles.irTienda}>
+                    <Link to="/" className={styles.irTienda}>
                         <span>Ir a la tienda</span>
                     </Link>
                 </div>
             )}
         </>
     );
-};
-
-const styles = {
-    container: {
-        display: "flex",
-        flexDirection: "row",
-        gap: "10px"
-    },
-    noProducts: {
-        width: "100%",
-        textAlign: "center",
-        fontSize: "15px",
-        fontWeight: "bold",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: "50px"
-    },
-    total: {
-        width: "100%",
-        textAlign: "right",
-        fontWeight: "bold"
-    },
-    cartContainer: {
-        width: "80%",
-        minWidth: "700px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center"
-    },
-    irTienda: {
-        width: "100px",
-        height: "25px",
-        border: "0",
-        backgroundColor: "#0b1c42",
-        borderRadius: "5px",
-        padding: "5px",
-        color: "#FFF",
-        marginTop: "10px",
-        cursor: "pointer",
-        textDecoration: "none"
-    },
-    inputForm: {
-        width: "100%",
-        height: "30px",
-        borderRadius: "5px",
-        border: "1px solid #C7C7C7",
-        padding: "5px",
-        marginBottom: "10px"
-    },
-    buttonForm: {
-        width: "100%",
-        height: "30px",
-        borderRadius: "5px",
-        border: "0",
-        padding: "5px",
-        marginBottom: "10px",
-        backgroundColor: "#027900",
-        color: "#fff"
-    }
 };
 
 export default Cart;
