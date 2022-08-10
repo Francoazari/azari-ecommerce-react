@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { contexto } from "../../context/CartContext";
 import ItemCart from "../ItemCart";
 import { db } from "../../firabase/firebase";
-import { doc, addDoc, collection, serverTimestamp, updateDoc } from "firebase/firestore";
+import { doc, addDoc, getDoc, collection, serverTimestamp, updateDoc } from "firebase/firestore";
 import swal from "sweetalert";
 import styles from "./Cart.module.css";
 
@@ -11,36 +11,64 @@ const Cart = () => {
     const { products, removeItem, getTotal, clear } = useContext(contexto);
     let navigate = useNavigate();
 
+    const checkStock = (items) => new Promise((resolve, reject) => {
+        const productsCollection = collection(db, "products");
+        let itemsWithoutStock = [];
+        for (let itemIndex in items)
+        {
+            const docRef = doc(productsCollection, items[itemIndex].id);
+            getDoc(docRef).then(result => {
+                console.log(result.data().stock, "<---- stock cantidad --->", items[itemIndex].quantity);
+                console.log(result.exists());
+                if (result.exists() && result.data().stock < items[itemIndex].quantity) {
+                    itemsWithoutStock.push([...items, items.stock = result.data().stock])
+                }
+            });            
+        }
+        resolve(itemsWithoutStock);
+    });
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        checkStock(products)
+        .then((result) => {
+            if (result.length === 0){
+            
 
-        const ventasCollection = collection(db, "ventas");
-        addDoc(ventasCollection, {
-            buyer: {
-                name: `${event.target["name"].value} ${event.target["lastname"].value}`,
-                phone: event.target["phone"].value,
-                email: event.target["email"].value
-            },
-            items: products,
-            date: serverTimestamp(),
-            total: getTotal()
-        })
-            .then((result) => {
-                const idVenta = result.id;
-                products.forEach((product) => {
-                    const updateCollection = doc(db, "products", product.id);
-                    updateDoc(updateCollection, { stock: product.stock - product.quantity }).then(() => {
-                        clear();
-                        swal("Compra realizada con éxito", "ID Venta: " + idVenta, "success").then(() => {
-                            navigate("/");
+                const ventasCollection = collection(db, "ventas");
+                addDoc(ventasCollection, {
+                    buyer: {
+                        name: `${event.target["name"].value} ${event.target["lastname"].value}`,
+                        phone: event.target["phone"].value,
+                        email: event.target["email"].value
+                    },
+                    items: products,
+                    date: serverTimestamp(),
+                    total: getTotal()
+                })
+                .then((result) => {
+                    const idVenta = result.id;
+                    products.forEach((product) => {
+                        const updateCollection = doc(db, "products", product.id);
+                        updateDoc(updateCollection, { stock: product.stock - product.quantity }).then(() => {
+                            clear();
+                            swal("Compra realizada con éxito", "ID Venta: " + idVenta, "success").then(() => {
+                                navigate("/");
+                            });
                         });
                     });
+                })
+                .catch((err) => {
+                    swal("¡Lo sentimos!", "Ha ocurrido un error con su compra. Por favor intente nuevamente.", "error");
+                    console.error(err);
                 });
-            })
-            .catch((err) => {
-                swal("¡Lo sentimos!", "Ha ocurrido un error con su compra. Por favor intente nuevamente.", "error");
-                console.error(err);
-            });
+            } else {
+                console.log("Sin stock --> ");
+            }
+        })
+
+        
+            
     };
 
     return (
