@@ -11,30 +11,35 @@ const Cart = () => {
     const { products, removeItem, getTotal, clear } = useContext(contexto);
     let navigate = useNavigate();
 
-    const checkStock = (items) => new Promise((resolve, reject) => {
-        const productsCollection = collection(db, "products");
-        let itemsWithoutStock = [];
-        for (let itemIndex in items)
-        {
-            const docRef = doc(productsCollection, items[itemIndex].id);
-            getDoc(docRef).then(result => {
-                console.log(result.data().stock, "<---- stock cantidad --->", items[itemIndex].quantity);
-                console.log(result.exists());
-                if (result.exists() && result.data().stock < items[itemIndex].quantity) {
-                    itemsWithoutStock.push([...items, items.stock = result.data().stock])
-                }
-            });            
-        }
-        resolve(itemsWithoutStock);
-    });
+    function checkStock (items) {
+        return new Promise((resolve, reject) => {
+            const productsCollection = collection(db, "products");
+            let itemsWithoutStock = [];
+            for (let itemIndex in items)
+            {
+                const docRef = doc(productsCollection, items[itemIndex].id);
+                getDoc(docRef)
+                .then(result => {
+                    if (result.exists() && result.data().stock < items[itemIndex].quantity) {
+                        itemsWithoutStock.push({...result.data(), id: result.id})
+                    }
+                })
+                .catch((err) => reject(err));
+            }
+            setTimeout(() => {
+                resolve(itemsWithoutStock);
+            }, 2000);
+        });
+
+    } 
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        
         checkStock(products)
         .then((result) => {
             if (result.length === 0){
-            
-
+        
                 const ventasCollection = collection(db, "ventas");
                 addDoc(ventasCollection, {
                     buyer: {
@@ -63,11 +68,13 @@ const Cart = () => {
                     console.error(err);
                 });
             } else {
-                console.log("Sin stock --> ");
+                console.error("Sin stock");
             }
         })
+        .catch((err) =>  {
+            console.error(err);
+        }); 
 
-        
             
     };
 
