@@ -3,7 +3,7 @@ import ItemList from "../ItemList";
 import { useParams } from "react-router-dom";
 import { db } from "../../firabase/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
-import { CircularProgress } from "@mui/material";
+import Spinner from "../Spinner";
 
 function ItemListContainer(props) {
     const [products, setProducts] = useState([]);
@@ -32,7 +32,24 @@ function ItemListContainer(props) {
         return setLoaded(true);
     }, [idCategory]);
 
-    return <>{loaded ? <CircularProgress color="success" /> : <ItemList products={products} />}</>;
+    return(
+        <>
+            <p>Bienvendidos a <b>Az Ecommerce</b>, un simulador de ecommerce, aquí podrás encontrar mucha variedad de productos y podrás <b>simular</b>:</p>
+            <ul>
+                <li>Ver productos</li>
+                <li>Ver detalle de productos</li>
+                <li>Agregar elementos al carrito</li>
+                <li>Eliminar elementos del carrito</li>
+                <li>Finalizar la compra (No hace falta completar con datos reales)</li>
+            </ul>
+            <p>
+                Si encuentras algun error o si tienes alguna duda o consulta lo puedes preguntar al administrador del sitio.
+            </p>
+            
+            {loaded ? <Spinner /> : <ItemList products={products} />}
+        </>
+        
+    ) 
 }
 
 export default ItemListContainer;

@@ -1,4 +1,5 @@
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import Cart from "./components/Cart";
@@ -20,6 +21,7 @@ function App() {
                             <Route path="/cart" element={<Cart />} />
                         </Routes>
                     </div>
+                    <Footer />
                 </CustomProvider>
             </BrowserRouter>
         </div>

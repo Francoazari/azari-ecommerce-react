@@ -80,17 +80,17 @@ const Cart = () => {
 
     return (
         <>
-            <h2>Cart</h2>
             {products.length > 0 && (
                 <div className={styles.container}>
                     <div className={styles.cartContainer}>
+                        <h2>Cart</h2>
                         {products.map((product) => {
                             return <ItemCart key={product.id} item={product} removeItem={removeItem} />;
                         })}
                         <div className={styles.total}>Total: ${getTotal().toFixed(2)}</div>
                     </div>
                     <div className={styles.datosUsuario}>
-                        <h3>Finalizar compra</h3>
+                        <h2>Finalizar compra</h2>
                         <form onSubmit={(e) => handleSubmit(e)}>
                             <input className={styles.inputForm} type="text" name="name" placeholder="Nombre" required />
                             <input className={styles.inputForm} type="text" name="lastname" placeholder="Apellido" required />
@@ -101,9 +101,9 @@ const Cart = () => {
                             </button>
                         </form>
                     </div>
-                </div>
+                </div>                
             )}
-
+            
             {products.length === 0 && (
                 <div className={styles.noProducts}>
                     <span>No hay articulos en el carrito.</span>

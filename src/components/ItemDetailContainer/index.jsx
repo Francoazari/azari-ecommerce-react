@@ -1,10 +1,11 @@
-import { CircularProgress } from "@mui/material";
+
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ItemDetail from "../ItemDetail";
 import { contexto } from "../../context/CartContext";
 import { db } from "../../firabase/firebase";
 import { getDoc, collection, doc } from "firebase/firestore";
+import Spinner from "../Spinner";
 
 function ItemDetailContainer(props) {
     const [product, setProduct] = useState([]);
@@ -34,7 +35,7 @@ function ItemDetailContainer(props) {
             .finally(() => setLoaded(false));
     }, [idProduct, isInCart, getElement, navigate]);
 
-    return <>{loaded ? <CircularProgress color="success" /> : <ItemDetail product={product} />}</>;
+    return <>{loaded ? <Spinner /> : <ItemDetail product={product} />}</>;
 }
 
 export default ItemDetailContainer;

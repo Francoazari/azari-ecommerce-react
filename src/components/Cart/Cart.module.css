@@ -26,6 +26,9 @@
     justify-content: flex-start;
     align-items: center;
 }
+.cartContainer h2 {
+    align-self: flex-start;
+}
 .irTienda {
     width: 100px;
     height: 25px;
