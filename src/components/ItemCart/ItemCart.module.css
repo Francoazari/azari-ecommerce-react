@@ -40,6 +40,10 @@
     color: #000;
     cursor: pointer;
 }
+.titleWithouStock,
+.quantityWithoutStock {
+    color: red !important;
+}
 .quantity {
     width: 10%;
     text-align: center;

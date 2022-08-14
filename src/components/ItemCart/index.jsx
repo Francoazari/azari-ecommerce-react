@@ -10,9 +10,9 @@ const ItemCart = ({ item, removeItem }) => {
             </div>
             <div className={styles.information}>
                 <Link to={"/item/" + item.id} className={styles.title}>
-                    <span className={styles.title}>{item.title}</span>
+                    <span className={item.stock < item.quantity ? styles.titleWithouStock : styles.title}>{item.title}</span>
                 </Link>
-                <span className={styles.quantity}>{item.quantity}</span>
+                <span className={item.stock < item.quantity ? styles.quantityWithoutStock : styles.quantity}>{item.quantity}</span>
                 <span className={styles.price}>${item.price.toFixed(2)}</span>
                 <span className={styles.totalPrice}>${(item.price * item.quantity).toFixed(2)}</span>
                 <div className={styles.removeButton}>

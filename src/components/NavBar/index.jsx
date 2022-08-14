@@ -38,7 +38,6 @@ function NavBar() {
                 </Link>
                 {
                     categories && categories.map((category) => {
-                        console.log(category);
                         return <Link key={category.id} to={category.route} className={styles.navStyleItem}>
                                     <p>{category.name}</p>
                                 </Link>
