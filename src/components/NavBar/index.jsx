@@ -1,9 +1,31 @@
+import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import CartWidget from "../CartWidget";
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
+import { db } from "../../firabase/firebase";
+import { getDocs, collection } from "firebase/firestore";
+
 
 function NavBar() {
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const categoriesCollection = collection(db, "categories");
+
+        getDocs(categoriesCollection)
+        .then((result) => {
+            let categoriesArr = [];
+
+            for(let doc of result.docs){
+                categoriesArr.push({ id: doc.id, ...doc.data()});
+            }
+            setCategories(categoriesArr);
+        })
+        .catch(err => console.error(err));
+    }, []);
+
     return (
         <header className={styles.container}>
             <Link to={"/"}>
@@ -14,18 +36,14 @@ function NavBar() {
                 <Link to={"/"} className={styles.navStyleItem}>
                     <p>Inicio</p>
                 </Link>
-                <Link to="/category/jewelery" className={styles.navStyleItem}>
-                    <p>Jewelery</p>
-                </Link>
-                <Link to="/category/electronics" className={styles.navStyleItem}>
-                    <p>Electronics</p>
-                </Link>
-                <Link to={"/"} className={styles.navStyleItem}>
-                    <p>Contactanos</p>
-                </Link>
-                <Link to={"/"} className={styles.navStyleItem}>
-                    <p>Ayuda</p>
-                </Link>
+                {
+                    categories && categories.map((category) => {
+                        console.log(category);
+                        return <Link key={category.id} to={category.route} className={styles.navStyleItem}>
+                                    <p>{category.name}</p>
+                                </Link>
+                    })
+                }
             </nav>
             <CartWidget />
         </header>
