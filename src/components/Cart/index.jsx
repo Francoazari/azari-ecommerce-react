@@ -8,7 +8,7 @@ import swal from "sweetalert";
 import styles from "./Cart.module.css";
 
 const Cart = () => {
-    const { products, removeItem, getTotal, clear } = useContext(contexto);
+    const { products, removeItem, getTotal, clear, updateStock } = useContext(contexto);
     let navigate = useNavigate();
 
     function checkStock (items) {
@@ -68,14 +68,18 @@ const Cart = () => {
                     console.error(err);
                 });
             } else {
-                console.error("Sin stock");
+                
+                for(let productWithoutStock of result){
+                    let productCartIndex = products.findIndex((product) => product.id === productWithoutStock.id);
+                    updateStock({...products[productCartIndex], stock: productWithoutStock.stock});
+                    // removeItem(products[productCartIndex].id);
+                    // addItem({...products[productCartIndex], stock: productWithoutStock.stock});
+                }
+                console.log(products);
+                swal("¡Lo sentimos!", "Algunos articulos de tu carrito han quedado con menos stock del solicitado. Por favor revise su orden de nuevo.", "error");
             }
         })
-        .catch((err) =>  {
-            console.error(err);
-        }); 
-
-            
+        .catch((err) => console.error(err));             
     };
 
     return (

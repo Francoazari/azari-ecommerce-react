@@ -7,13 +7,13 @@ const CustomProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        if(localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart")).length > 0){
+        if (localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart")).length > 0) {
             setProducts(JSON.parse(localStorage.getItem("cart")));
         }
     }, []);
 
-    const addItem = (item, quantity) => {
-        if (!item || !quantity) return;
+    const addItem = (item, quantity = 0) => {
+        if (!item) return;
 
         let newProducts = [...products];
         if (isInCart(item.id)) {
@@ -33,6 +33,17 @@ const CustomProvider = ({ children }) => {
         const idABorrar = newProducts.findIndex((product) => product.id === id);
         newProducts.splice(idABorrar, 1);
 
+        newProducts.length > 0 ? localStorage.setItem("cart", JSON.stringify(newProducts)) : localStorage.removeItem("cart");
+
+        setProducts(newProducts);
+    };
+
+    const updateStock = (item) => {
+        if (!item) return;
+
+        let newProducts = [...products];
+        let newProductIndex = newProducts.findIndex((product) => product.id === item.id);
+        newProducts[newProductIndex] = { ...newProducts[newProductIndex], stock: item.stock };
         localStorage.setItem("cart", JSON.stringify(newProducts));
         setProducts(newProducts);
     };
@@ -40,7 +51,7 @@ const CustomProvider = ({ children }) => {
     const clear = () => {
         localStorage.removeItem("cart");
         setProducts([]);
-    }
+    };
 
     const getElement = (id) => products.find((item) => item.id === id);
 
@@ -50,7 +61,7 @@ const CustomProvider = ({ children }) => {
 
     const getTotal = () => products.reduce((accum, currentValue) => accum + currentValue.price * currentValue.quantity, 0);
 
-    return <Provider value={{ products, addItem, removeItem, clear, isInCart, getElement, getQuantityProducts, getTotal }}>{children}</Provider>;
+    return <Provider value={{ products, addItem, removeItem, clear, isInCart, getElement, getQuantityProducts, getTotal, updateStock }}>{children}</Provider>;
 };
 
 export default CustomProvider;
