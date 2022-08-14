@@ -27,7 +27,7 @@ function ItemListContainer(props) {
                 });
                 setProducts(lista);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
             .finally(() => setLoaded(false));
         return setLoaded(true);
     }, [idCategory]);

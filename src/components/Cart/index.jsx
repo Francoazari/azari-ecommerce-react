@@ -72,10 +72,7 @@ const Cart = () => {
                 for(let productWithoutStock of result){
                     let productCartIndex = products.findIndex((product) => product.id === productWithoutStock.id);
                     updateStock({...products[productCartIndex], stock: productWithoutStock.stock});
-                    // removeItem(products[productCartIndex].id);
-                    // addItem({...products[productCartIndex], stock: productWithoutStock.stock});
                 }
-                console.log(products);
                 swal("¡Lo sentimos!", "Algunos articulos de tu carrito han quedado con menos stock del solicitado. Por favor revise su orden de nuevo.", "error");
             }
         })
