@@ -96,6 +96,7 @@ const Cart = () => {
                             <input className={styles.inputForm} type="text" name="name" placeholder="Nombre" required />
                             <input className={styles.inputForm} type="text" name="lastname" placeholder="Apellido" required />
                             <input className={styles.inputForm} type="email" name="email" placeholder="Email" required />
+                            <input className={styles.inputForm} type="email" name="confirmar-email" placeholder="Confirmar email" required />
                             <input className={styles.inputForm} type="phone" name="phone" placeholder="Telefono" required />
                             <button className={styles.buttonForm} type="submit">
                                 Confirmar compra

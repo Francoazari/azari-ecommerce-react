@@ -40,13 +40,23 @@
     color: #000;
     cursor: pointer;
 }
-.titleWithouStock,
-.quantityWithoutStock {
+.titleWithouStock {
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: none;
     color: red !important;
+    cursor: pointer;
 }
 .quantity {
     width: 10%;
     text-align: center;
+}
+.quantityWithoutStock {
+    width: 10%;
+    text-align: center;
+    color: red !important;
 }
 .price {
     width: 10%;

@@ -21,7 +21,9 @@ function ItemDetail({ product }) {
                 <h2 className={styles.title}>{product.title}</h2>
                 <p className={styles.price}>${product.price}</p>
                 <p className={styles.description}>{product.description}</p>
-                {(!isInCart(product.id) || product.stock > 0) && <ItemCount stock={product.stock} initial={1} onAdd={agregarProducto} />}
+                
+                {(!isInCart(product.id) && product.stock > 0) && <ItemCount stock={product.stock} initial={1} onAdd={agregarProducto} />}
+                {product.stock === 0 && <div className={styles.sinStock}>Sin stock</div>}
                 {isInCart(product.id) && (
                     <Link to="/cart">
                         <button className={styles.terminarCompra}>Terminar mi compra</button>
